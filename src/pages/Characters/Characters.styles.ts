@@ -10,7 +10,7 @@ export const Title = styled.div`
 ${({ theme }) => css`
     display: flex;
     justify-content: center;
-    padding: ${theme.spacing.base12}
+    padding: ${theme.spacing.base32}
 `}
 `
 

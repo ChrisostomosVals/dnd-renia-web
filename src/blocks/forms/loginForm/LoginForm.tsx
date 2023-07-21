@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../../store/account/thunks";
 import { AppDispatch } from "../../../store";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 export const LoginForm: FC = () => {
   const [error, setError] = useState<boolean>(false);
   const {
@@ -22,6 +23,7 @@ export const LoginForm: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const { toggleAuthentication } = useContext(AuthContext);
+  const [show, setShow] = useState<boolean>(false);
   const onSubmit: SubmitHandler<LoginFormData> = async (
     data
   ): Promise<void> => {
@@ -58,12 +60,25 @@ export const LoginForm: FC = () => {
         <Styled.FormAreaContainer>
           <Styled.Input
             id="password"
-            type="password"
+            type={show ? "text" : "password"}
             placeholder="Password"
             {...register("password", { required: true })}
           />
           {errors.password && <ErrorField />}
           <Styled.Label htmlFor="password">Password</Styled.Label>
+          {show ? (
+            <Styled.Eye>
+              <Styled.ReactIcon>
+                <FaEyeSlash onClick={() => setShow(false)} />
+              </Styled.ReactIcon>
+            </Styled.Eye>
+          ) : (
+            <Styled.Eye>
+              <Styled.ReactIcon>
+                <FaEye onClick={() => setShow(true)} />
+              </Styled.ReactIcon>
+            </Styled.Eye>
+          )}
         </Styled.FormAreaContainer>
         {error && <Typography variant="paragraphMedium">Invalid Email or Password</Typography>}
         </Styled.Form>

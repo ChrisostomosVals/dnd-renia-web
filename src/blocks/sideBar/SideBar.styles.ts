@@ -99,3 +99,11 @@ ${({theme}) => css`
         color:  ${theme.color[theme.mode].iconHover};
     `}
 `;
+
+export const ModalFooter = styled.div`
+${({theme}) => css`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    `}
+`

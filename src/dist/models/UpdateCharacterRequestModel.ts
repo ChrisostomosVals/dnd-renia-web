@@ -4,4 +4,5 @@ export default interface UpdateCharacterRequestModel {
     type: string;
     classId: string;
     raceId: string;
+    visible: boolean;
 }

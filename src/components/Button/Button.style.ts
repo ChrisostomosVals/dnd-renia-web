@@ -57,9 +57,9 @@ export const Button = styled.button`
       cursor: default;
     }
     &:hover {
-      box-shadow: ${theme.shadow.strong.horizontal}
-        ${theme.shadow.strong.vertical} ${theme.shadow.strong.blur}
-        ${theme.shadow.strong.color};
+      box-shadow: ${theme.shadow[theme.mode].horizontal}
+        ${theme.shadow[theme.mode].vertical} ${theme.shadow[theme.mode].blur}
+        ${theme.shadow[theme.mode].color};
     }
   `}
 `;

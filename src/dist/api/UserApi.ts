@@ -132,7 +132,7 @@ export default class UserApi{
             return new ApiResponseModel<void>(null, ErrorResponseModel.NewError("UserApi.UpdateAsync().Exception", error));;
         }
     }
-    public static async ChangePassword(token:string, url: string, id: string, request: ChangePasswordRequestModel) : Promise<ApiResponseModel<void>> {
+    public static async ChangePasswordAsync(token:string, url: string, id: string, request: ChangePasswordRequestModel) : Promise<ApiResponseModel<void>> {
         try {
             const uri = `${url}/${userEndpoint}/${id}/changepassword`;
             const response = await HttpClient.patchAsync(token, uri, request)

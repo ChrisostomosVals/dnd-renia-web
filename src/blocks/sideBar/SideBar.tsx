@@ -6,18 +6,37 @@ import * as Styled from "./SideBar.styles";
 import { AiFillSetting, AiOutlineLogout } from "react-icons/ai";
 import { AuthContextType } from "../../providers/authProvider/AuthContext.types";
 import { AuthContext } from "../../providers/authProvider/AuthProvider";
+import { removLocalStorageItems } from "../../utls/methods";
+import { CustomModal } from "../../components/Modal/Modal";
+import { Typography } from "../../components/Typography/Typography.style";
+import { Button } from "../../components/Button/Button.style";
 
 const Sidebar: FC = () => {
   const [close, setClose] = useState<boolean>(false);
   const showSidebar = () => setClose(!close);
   const navigate = useNavigate();
   const { toggleAuthentication } = useContext<AuthContextType>(AuthContext);
+  const [open, setOpen] = useState<boolean>(false);
+  const requestLogout = (): void => {
+    setOpen(true);
+  }
   const logout = (): void => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("profile");
+    removLocalStorageItems([
+      'token',
+      'profile',
+      'characters',
+      'locations',
+      'worldObjects'
+    ])
     toggleAuthentication(false);
     navigate("/login");
   };
+  const Footer:FC = () =>( 
+    <Styled.ModalFooter>
+      <Button fullWidth={false} variant="secondary" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button fullWidth={false} variant="primary" onClick={logout}>Confirm</Button>
+    </Styled.ModalFooter>
+  )
   return (
     <>
       <Styled.Navbar>
@@ -30,11 +49,14 @@ const Sidebar: FC = () => {
         </Styled.MenuIconOpen>
         </Styled.LeftSection>
         <Styled.RightSection>
+          <Styled.ReactIcon>
+            <FaIcons.FaUserAlt cursor="pointer" onClick={() => navigate("/account")} />
+          </Styled.ReactIcon>
           <Styled.ReactIcon onClick={() => navigate("/settings")}>
             <AiFillSetting cursor='pointer' />
           </Styled.ReactIcon>
           <Styled.ReactIcon>
-            <AiOutlineLogout cursor="pointer" size={40} onClick={logout} />
+            <AiOutlineLogout cursor="pointer" onClick={requestLogout} />
           </Styled.ReactIcon>
         </Styled.RightSection>
        
@@ -49,17 +71,21 @@ const Sidebar: FC = () => {
         {SidebarData.map((item, index) => {
           return (
             <Styled.MenuItems key={index}>
-              <Styled.MenuItemLinks to={item.path}>
+              {<item.Filter><Styled.MenuItemLinks to={item.path}>
                 {item.icon}
                 <span style={{ marginLeft: "16px" }}>{item.title}</span>
-              </Styled.MenuItemLinks>
+              </Styled.MenuItemLinks></item.Filter>}
             </Styled.MenuItems>
           );
         })}
       </Styled.SidebarMenu>
-      
+      <CustomModal footer={<Footer/>} open={open}>
+        <Typography variant="heading1" align="center">Are you sure you want to logout?</Typography>
+      </CustomModal>
     </>
   );
 };
+
+
 
 export default Sidebar;

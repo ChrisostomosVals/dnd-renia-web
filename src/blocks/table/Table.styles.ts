@@ -9,7 +9,8 @@ ${({ theme }) => css`
   td,
   th {
     border: none;
-}
+    padding: ${theme.spacing.base12} ${theme.spacing.base32};
+    }
   td {
     padding: ${theme.spacing.base12} ${theme.spacing.base32};
   }

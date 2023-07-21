@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { AccountState } from "./types";
 import TokenModel from "../../dist/models/TokenModel";
-import { login } from "./thunks";
+import { changePassword, login } from "./thunks";
 import UserModel from "../../dist/models/UserModel";
 
 const initialState: AccountState = {
@@ -52,6 +52,9 @@ export const accountSlice = createSlice({
                 state.user = undefined;
                 state.token = undefined;
                 state.authenticated = false;
+            })
+            .addCase(changePassword.fulfilled, (state, action) => {
+                
             })
     }
 });
