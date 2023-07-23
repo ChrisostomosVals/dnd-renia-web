@@ -23,6 +23,7 @@ ${({ theme }) => css`
     }
     :hover {
       background-color: ${theme.color[theme.mode].hover};
+      cursor: pointer;
     }
   }
   thead > tr {

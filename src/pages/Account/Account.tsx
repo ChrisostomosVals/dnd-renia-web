@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import * as Styled from "./Account.styles";
 import { Typography } from "../../components/Typography/Typography.style";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
+import RequireAuth from "../../access/RequireAuth";
 import CharacterModel from "../../dist/models/CharacterModel";
 import CharacterApi from "../../dist/api/CharacterApi";
 import { ToastContainer, toast } from "react-toastify";
 import { ChangePasswordForm } from "../../blocks/forms/changePasswordForm/ChangePasswordForm";
+import { Paths } from "../../routes/paths";
+import { FaEdit } from "react-icons/fa";
 const AccountPage: FC = () => {
   const user = useSelector((state: RootState) => state.account.user);
   const url = useSelector((state: RootState) => state.settings.url);
@@ -47,12 +49,12 @@ const AccountPage: FC = () => {
             <ChangePasswordForm id={user?.id}/>
             </Styled.InfoArea>
           <Styled.InfoArea>
-          <Typography variant="heading2" align="center">
-              Your Character
-            </Typography>
+            <Styled.IconLink to={Paths.AccountCharacter}>
             <Typography variant="heading2" align="center">
-              {character.name}
+              Character Sheet
             </Typography>
+            <FaEdit size={30}/>
+          </Styled.IconLink>
           </Styled.InfoArea>
           </Styled.Section>
         )}
@@ -62,6 +64,6 @@ const AccountPage: FC = () => {
   );
 };
 
-const Account = AuthMiddleware(AccountPage);
+const Account = RequireAuth(AccountPage);
 
 export default Account;

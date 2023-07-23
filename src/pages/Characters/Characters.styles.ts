@@ -5,22 +5,49 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-`
-export const Title = styled.div`
 ${({ theme }) => css`
-    display: flex;
-    justify-content: center;
-    padding: ${theme.spacing.base32}
+    gap: ${theme.spacing.base12};
 `}
 `
-
 export const TableContainer = styled.div`
 display: flex;
 justify-content: center;
 `;
-
-export const IconLink = styled(Link)`
+export const Title = styled.div`
+    display: flex;
+    justify-content: center;
 ${({ theme }) => css`
-    color: ${theme.color[theme.mode].link}
+    padding: ${theme.spacing.base32}
 `}
 `
+export const ReactIcon = styled.div`
+${({ theme }) => css`
+    svg {
+        color: ${theme.color[theme.mode].icon};
+        padding: ${theme.spacing.base8};
+    }
+    svg:hover {
+        color:  ${theme.color[theme.mode].iconHover};
+        cursor: pointer;
+    }`}
+`;
+
+export const IconLink = styled(Link)`
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+${({ theme }) => css`
+    padding: ${theme.spacing.base12};
+    &:hover {
+      background-color: ${theme.color[theme.mode].header};
+      color: ${theme.color[theme.mode].hover};
+      text-align: center;
+      border-radius: ${theme.spacing.base12};
+    }
+`}
+`
+export const NavContainer = styled.div`
+    display: flex;
+    justify-content: center;
+`;

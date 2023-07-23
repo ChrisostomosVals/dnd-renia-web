@@ -5,12 +5,13 @@ export const Button:FC<ButtonProps> = ({
     onClick,
     children,
     fullWidth,
-    variant = 'primary'
+    variant = 'primary',
+    type = 'submit'
 }) => {
 
 
     return(
-        <Styled.Button fullWidth={fullWidth} onClick={onClick} variant={variant}>
+        <Styled.Button fullWidth={fullWidth} onClick={onClick} variant={variant} type={type}>
             {children}
         </Styled.Button>
     )

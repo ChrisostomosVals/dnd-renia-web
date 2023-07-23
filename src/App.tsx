@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom';
-import './App.css';
 import { Providers } from './providers';
 import { AppRouter } from './routes';
 

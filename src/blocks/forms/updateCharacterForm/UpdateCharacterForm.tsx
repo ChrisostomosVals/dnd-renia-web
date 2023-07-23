@@ -147,7 +147,7 @@ export const UpdateCharacterForm: FC<{ character: CharacterModel }> = ({
               {...register(`visible`)}
             />
           </Styled.CheckBoxAreaContainer>
-          <Styled.FormFooter>
+         <Styled.FormFooter>
             <Button variant="primary" fullWidth={false}>
               Update
             </Button>

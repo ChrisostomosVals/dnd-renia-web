@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { StatsForm } from "../../blocks/forms/statsForm/StatsForm";
 import { Stats } from "../../blocks/stats/Stats";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
+import RequireAuth from "../../access/RequireAuth";
 
 export const StatsPage:FC = () =>{
     const user = useSelector((state: RootState) => state.account.user);
@@ -17,6 +17,6 @@ export const StatsPage:FC = () =>{
     }
 }
 
-const CharacterStats = AuthMiddleware(StatsPage);
+const CharacterStats = RequireAuth(StatsPage);
 
 export default CharacterStats;

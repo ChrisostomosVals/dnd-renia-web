@@ -1,6 +1,6 @@
 import { FC } from "react";
-import GameMasterMiddleware from "../../middlewares/GameMasterMiddleware";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
+import RequireGameMaster from "../../access/RequireGameMaster";
+import RequireAuth from "../../access/RequireAuth";
 import { NewCharacterForm } from "../../blocks/forms/newCharacterForm/NewCharacterForm";
 const NewCharacterPage:FC = () => {
 
@@ -9,6 +9,6 @@ const NewCharacterPage:FC = () => {
     )
 }
 
-const NewCharacter = AuthMiddleware(GameMasterMiddleware(NewCharacterPage));
+const NewCharacter = RequireAuth(RequireGameMaster(NewCharacterPage));
 
 export default NewCharacter;

@@ -36,7 +36,7 @@ export default class UserApi{
             return new ApiResponseModel<UserModel[]>(null, ErrorResponseModel.NewError("UserApi.GetAsync().Exception", error));;
         }
     }
-    public static async GetByIdAsync(token:string, url: string, id: number) : Promise<ApiResponseModel<UserModel>> {
+    public static async GetByIdAsync(token:string, url: string, id: string) : Promise<ApiResponseModel<UserModel>> {
         try {
             const uri = `${url}/${userEndpoint}/${id}`;
             const response = await HttpClient.getAsync(token, uri)

@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { RootState } from "../store";
 
-const GameMasterMiddleware = <P extends object>(WrappedComponent: ComponentType<P>) =>{
-    const GameMasterMiddlewareComponent: React.FC<P> = (props: P) => {
+const RequireGameMaster = <P extends object>(WrappedComponent: ComponentType<P>) =>{
+    const RequireGameMasterComponent: React.FC<P> = (props: P) => {
         const user = useSelector((state: RootState) => state.account.user);
         const navigate = useNavigate();
         useEffect(() => {
@@ -18,8 +18,8 @@ const GameMasterMiddleware = <P extends object>(WrappedComponent: ComponentType<
         return null;
       };
     
-      return GameMasterMiddlewareComponent;
+      return RequireGameMasterComponent;
 }
 
 
-export default GameMasterMiddleware;
+export default RequireGameMaster;

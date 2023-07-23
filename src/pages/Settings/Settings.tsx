@@ -1,7 +1,7 @@
 import { FC } from "react";
 import * as Styled from "./Settings.styles";
 import Typography from "../../components/Typography/Typography";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
+import RequireAuth from "../../access/RequireAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { ColorVariantType } from "../../theme/color";
@@ -45,6 +45,6 @@ const SettingsPage: FC = () => {
   );
 };
 
-const Settings = AuthMiddleware(SettingsPage);
+const Settings = RequireAuth(SettingsPage);
 
 export default Settings;

@@ -12,5 +12,6 @@ export const spacing = {
     base64: '4rem',
     base72: '4.5rem',
     base80: '5rem',
+    base128: '8rem',
   };
   

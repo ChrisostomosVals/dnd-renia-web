@@ -3,13 +3,14 @@ import * as Styled from "../styles/Form.style";
 import Typography from "../../../components/Typography/Typography";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ChangePasswordFormData } from "./ChangePasswordForm.types";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store";
 import { ErrorField } from "../../../components/Error/ErrorField";
 import { Button } from "../../../components/Button/Button";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
-import { changePassword } from "../../../store/account/thunks";
 import { ToastContainer, toast } from "react-toastify";
+import UserApi from "../../../dist/api/UserApi";
+import ChangePasswordRequestModel from "../../../dist/models/ChangePasswordModel";
 export const ChangePasswordForm: FC<{ id: string }> = ({ id }) => {
   const {
     control,
@@ -22,22 +23,24 @@ export const ChangePasswordForm: FC<{ id: string }> = ({ id }) => {
   const token = useSelector((state: RootState) => state.account.token?.access_token ?? "");
   const themeMode = useSelector((state: RootState) => state.settings.preferences.themeMode);
   const [show, setShow] = useState<boolean>(false);
-  const dispatch = useDispatch<AppDispatch>();
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (
     data
   ): Promise<void> => {
-    dispatch(changePassword({token, url, id, request: data}))
-    .then(response => {
-        console.log(response)
-        if (response.type === "password/rejected") {
-            toast.error("Failed to update password");
-          } else if (response.type === "password/fulfilled") {
-            toast.success("Password updated!");
-            reset();
-          } else {
-            toast.error("Something went wrong");
-          }
-    })
+    try {
+      const request:ChangePasswordRequestModel = data;
+      const response = await UserApi.ChangePasswordAsync(token, url, id, request);
+      if (response.isError) {
+        toast.error("Failed to update password");
+        return;
+      }
+      toast.success("Password updated!");
+      reset();
+      return;
+  } catch (error: any) {
+      console.log(error);
+      toast.error("Something went wrong");
+      return;
+  }
   };
   return (
     <Styled.AlterContainer>

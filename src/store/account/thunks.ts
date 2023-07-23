@@ -27,19 +27,3 @@ export const login = createAsyncThunk<{token: TokenModel, profile: UserModel}, {
         }
     }
 )
-
-export const changePassword = createAsyncThunk<boolean, { token: string; url: string; id: string; request: ChangePasswordRequestModel; }, { rejectValue: { error: string }}>(
-    'password',
-    async({ token, url, id, request}, thunkAPI) => {
-        try {
-            const response = await UserApi.ChangePasswordAsync(token, url, id, request);
-            if (response.isError) {
-                return thunkAPI.rejectWithValue({error: 'Could not update password'});
-            }
-            return thunkAPI.fulfillWithValue(true);
-        } catch (error: any) {
-            console.log(error);
-            return thunkAPI.rejectWithValue({error:'Something went wrong'});
-        }
-    }
-)

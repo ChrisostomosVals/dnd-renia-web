@@ -1,7 +1,7 @@
 import { ActionReducerMapBuilder, PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { WorldState } from "./types";
 import CharacterModel from "../../dist/models/CharacterModel";
-import { createCharacter, fetchCharacters, fetchRacesAndClasses, updateCharacter, updateCharacterSkills, updateCharacterStats } from "./thunks";
+import { createCharacter, fetchCharacters, fetchRacesAndClasses, updateCharacter, updateCharacterFeats, updateCharacterGear, updateCharacterSkills, updateCharacterSpecialAbilities, updateCharacterStats } from "./thunks";
 import LocationModel from "../../dist/models/LocationModel";
 import WorldObjectModel from "../../dist/models/WorldObjectModel";
 import RaceModel from "../../dist/models/RaceModel";
@@ -85,6 +85,45 @@ export const worldSlice = createSlice({
                 const updatedCharacter = {
                   ...state.characters[characterIndex],
                   skills: action.payload.skills,
+                };
+                state.characters[characterIndex] = updatedCharacter;
+              }
+            localStorage.setItem('characters', JSON.stringify(state.characters));
+            })
+            .addCase(updateCharacterGear.fulfilled,(state, action) => {
+              const characterIndex = state.characters.findIndex(
+                (character) => character.id === action.payload.id
+              );
+              if (characterIndex !== -1) {
+                const updatedCharacter = {
+                  ...state.characters[characterIndex],
+                  gear: action.payload.gear,
+                };
+                state.characters[characterIndex] = updatedCharacter;
+              }
+            localStorage.setItem('characters', JSON.stringify(state.characters));
+            })
+            .addCase(updateCharacterFeats.fulfilled,(state, action) => {
+              const characterIndex = state.characters.findIndex(
+                (character) => character.id === action.payload.id
+              );
+              if (characterIndex !== -1) {
+                const updatedCharacter = {
+                  ...state.characters[characterIndex],
+                  feats: action.payload.feats,
+                };
+                state.characters[characterIndex] = updatedCharacter;
+              }
+            localStorage.setItem('characters', JSON.stringify(state.characters));
+            })
+            .addCase(updateCharacterSpecialAbilities.fulfilled,(state, action) => {
+              const characterIndex = state.characters.findIndex(
+                (character) => character.id === action.payload.id
+              );
+              if (characterIndex !== -1) {
+                const updatedCharacter = {
+                  ...state.characters[characterIndex],
+                  specialAbilities: action.payload.specialAbilities,
                 };
                 state.characters[characterIndex] = updatedCharacter;
               }

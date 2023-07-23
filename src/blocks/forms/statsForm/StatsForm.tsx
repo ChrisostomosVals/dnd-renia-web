@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { updateCharacterStats } from "../../../store/world/thunks";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const StatsForm: FC = () => {
   const [stats, setStats] = useState<StatModel[]>([]);
@@ -18,7 +18,6 @@ export const StatsForm: FC = () => {
   const characters = useSelector((state: RootState) => state.world.characters);
   const token = useSelector((state: RootState) => state.account.token);
   const url = useSelector((state: RootState) => state.settings.url);
-  const themeMode = useSelector((state: RootState) => state.settings.preferences.themeMode);
   const dispatch = useDispatch<AppDispatch>();
   const {
     control,
@@ -92,9 +91,6 @@ export const StatsForm: FC = () => {
           </Button>
         </Styled.FormFooter>
         </Styled.StatsBox>
-        <ToastContainer
-          theme={themeMode}
-        />
   </Styled.AlterContainer>
   )
 };

@@ -8,6 +8,7 @@ import UpdateCharacterDefinitionRequestModel from "../../dist/models/UpdateChara
 import CreateCharacterRequestModel from "../../dist/models/CreateCharacterRequestModel";
 import UpdateCharacterRequestModel from "../../dist/models/UpdateCharacterRequestModel";
 import SkillModel from "../../dist/models/SkillModel";
+import GearModel from "../../dist/models/GearModel";
 
 export const fetchCharacters = createAsyncThunk<CharacterModel[], { token: string; url: string; }, { rejectValue: { error: string } }>(
     'characters',
@@ -127,6 +128,58 @@ export const updateCharacterSkills = createAsyncThunk<{id: string; skills:SkillM
                 return thunkAPI.rejectWithValue({error: 'failed to update skills'});
             }
             return thunkAPI.fulfillWithValue({id: id, skills: skills});
+        }
+        catch(error: any){
+            console.log(error);
+            return thunkAPI.rejectWithValue({ error: 'Something went wrong' });
+        }
+    }
+)
+
+
+export const updateCharacterGear = createAsyncThunk<{id: string; gear:GearModel[]}, { token: string; url: string; request: UpdateCharacterDefinitionRequestModel<GearModel>}, { rejectValue: { error: string } }>(
+    'gear',
+    async({token, url, request}, thunkAPI) => {
+        try{
+            const response = await CharacterApi.UpdateGearAsync(token, url, request);
+            if(response.isError){
+                return thunkAPI.rejectWithValue({error: 'failed to update gear'});
+            }
+            return thunkAPI.fulfillWithValue({id: request.id, gear: request.updateDefinition});
+        }
+        catch(error: any){
+            console.log(error);
+            return thunkAPI.rejectWithValue({ error: 'Something went wrong' });
+        }
+    }
+)
+
+export const updateCharacterFeats = createAsyncThunk<{id: string; feats:string[]}, { token: string; url: string; request: UpdateCharacterDefinitionRequestModel<string>}, { rejectValue: { error: string } }>(
+    'feats',
+    async({token, url, request}, thunkAPI) => {
+        try{
+            const response = await CharacterApi.UpdateFeatsAsync(token, url, request);
+            if(response.isError){
+                return thunkAPI.rejectWithValue({error: 'failed to update feats'});
+            }
+            return thunkAPI.fulfillWithValue({id: request.id, feats: request.updateDefinition});
+        }
+        catch(error: any){
+            console.log(error);
+            return thunkAPI.rejectWithValue({ error: 'Something went wrong' });
+        }
+    }
+)
+
+export const updateCharacterSpecialAbilities = createAsyncThunk<{id: string; specialAbilities:string[]}, { token: string; url: string; request: UpdateCharacterDefinitionRequestModel<string>}, { rejectValue: { error: string } }>(
+    'special-abilities',
+    async({token, url, request}, thunkAPI) => {
+        try{
+            const response = await CharacterApi.UpdateSpecialAbilitiesAsync(token, url, request);
+            if(response.isError){
+                return thunkAPI.rejectWithValue({error: 'failed to update special abilities'});
+            }
+            return thunkAPI.fulfillWithValue({id: request.id, specialAbilities: request.updateDefinition});
         }
         catch(error: any){
             console.log(error);

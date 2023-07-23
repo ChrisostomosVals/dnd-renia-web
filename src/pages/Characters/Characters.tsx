@@ -5,12 +5,13 @@ import {
   fetchCharacters,
   fetchRacesAndClasses,
 } from "../../store/world/thunks";
-import AuthMiddleware from "../../middlewares/AuthMiddleware";
+import RequireAuth from "../../access/RequireAuth";
 import * as Styled from "./Characters.styles";
 import { Typography } from "../../components/Typography/Typography.style";
 import Table from "../../blocks/table/Table";
-import { FaCircleInfo } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Paths } from "../../routes/paths";
+import { FaUserPlus } from "react-icons/fa";
+import GameMasterFilter from "../../components/Filters/GameMasterFilter";
 const CharactersPage: FC = () => {
   const characters = useSelector((state: RootState) => state.world.characters);
   const classes = useSelector((state: RootState) => state.world.classes);
@@ -29,6 +30,16 @@ const CharactersPage: FC = () => {
       <Styled.Title>
         <Typography variant="heading1">Characters</Typography>
       </Styled.Title>
+      <GameMasterFilter>
+        <Styled.NavContainer>
+          <Styled.IconLink to={Paths.NewCharacter}>
+            <Typography variant="paragraphLarge">New Character</Typography>
+            <Styled.ReactIcon>
+              <FaUserPlus size={40} />
+            </Styled.ReactIcon>
+          </Styled.IconLink>
+        </Styled.NavContainer>
+      </GameMasterFilter>
       <Styled.TableContainer>
         {!!characters.length && !!races.length && !!classes.length && (
           <Table
@@ -46,7 +57,7 @@ const CharactersPage: FC = () => {
               Race: !!races.find((race) => character.raceId === race.id)
                 ? races.find((race) => character.raceId === race.id)!.name
                 : "unknown",
-              Info: <Styled.IconLink to={`${character.id}`}><FaCircleInfo cursor='pointer'/></Styled.IconLink>,
+              path: `${Paths.Characters}/${character.id}`,
             }))}
           />
         )}
@@ -55,5 +66,5 @@ const CharactersPage: FC = () => {
   );
 };
 
-const Characters = AuthMiddleware(CharactersPage);
+const Characters = RequireAuth(CharactersPage);
 export default Characters;

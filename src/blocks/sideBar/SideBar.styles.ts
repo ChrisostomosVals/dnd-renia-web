@@ -70,7 +70,7 @@ ${({theme}) => css `
     color: ${theme.color[theme.mode].text};
 
     &:hover {
-        background-color: ${theme.color[theme.mode].text};
+        background-color: ${theme.color[theme.mode].header};
         color: ${theme.color[theme.mode].hover};
         width: 100%;
         height: 45px;
@@ -101,9 +101,7 @@ ${({theme}) => css`
 `;
 
 export const ModalFooter = styled.div`
-${({theme}) => css`
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    `}
 `

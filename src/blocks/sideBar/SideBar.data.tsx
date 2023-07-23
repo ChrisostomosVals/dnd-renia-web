@@ -1,7 +1,8 @@
 import React, { FC, Fragment, ReactNode } from 'react'
 import * as FaIcons from 'react-icons/fa' 
-import { GiBodySwapping } from "react-icons/gi";
+import { GiBodySwapping, GiBookCover } from "react-icons/gi";
 import GameMasterFilter from '../../components/Filters/GameMasterFilter';
+import { Paths } from '../../routes/paths';
 type ItemLink = {
     title: string;
     path: string;
@@ -17,14 +18,26 @@ export const SidebarData:ItemLink[] = [
     },
     {
         title: 'Characters',
-        path: '/characters',
+        path: Paths.Characters,
         icon: <GiBodySwapping />,
         Filter: Fragment
     },
     {
-        title: 'New Character',
-        path: '/new-character',
-        icon: <FaIcons.FaPlusSquare />,
+        title: 'Chapters',
+        path: Paths.Chapters,
+        icon: <GiBookCover />,
+        Filter: Fragment
+    },
+    {
+        title: 'Map',
+        path: Paths.Map,
+        icon: <FaIcons.FaMap />,
+        Filter: Fragment
+    },
+    {
+        title: 'Users',
+        path: Paths.Users,
+        icon: <FaIcons.FaUsers />,
         Filter: GameMasterFilter
-    }
+    },
 ]

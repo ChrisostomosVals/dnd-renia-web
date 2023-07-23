@@ -6,13 +6,14 @@ import { ThemeProvider } from "styled-components";
 import { AuthProvider } from "../authProvider/AuthProvider";
 import settingsActions from "../../store/settings/actions";
 import { ColorVariantType } from "../../theme/color";
+import { ToastContainer } from "react-toastify";
 
 const NestedProvider:FC<{children: ReactNode}> = ({children}) =>{
     const mode = useSelector((state: RootState) => state.settings.preferences.themeMode);
     const dispatch = useDispatch();
     useEffect(() => {
-      const themMode = localStorage.getItem('themeMode') ?? 'light';
-      dispatch(settingsActions.changeTheme(themMode as ColorVariantType))
+      const themeMode = localStorage.getItem('themeMode') ?? 'light';
+      dispatch(settingsActions.changeTheme(themeMode as ColorVariantType))
     },[mode])
   
   const themeWithMode = {
@@ -23,6 +24,9 @@ const NestedProvider:FC<{children: ReactNode}> = ({children}) =>{
     <ThemeProvider theme={themeWithMode}>
         <AuthProvider>
             {children}
+            <ToastContainer
+              theme={mode}
+            />
         </AuthProvider>
     </ThemeProvider>
   )

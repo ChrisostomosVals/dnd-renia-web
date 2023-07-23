@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import StatModel from "../../dist/models/StatModel";
 import * as Styled from './Stats.styles';
-import { Stat } from "../../components/Stat/Stat";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -31,7 +30,14 @@ export const Stats:FC = () =>{
                 !!stats.length &&
                 stats.map((stat, index) => 
                 <Styled.StatContainer key={stat.name + index}>
-                    <Stat  name={stat.name} value={stat.value} shown={stat.shown}/>
+                    <Styled.Input
+                    id={stat.value}
+                    type="text"
+                    placeholder={stat.name}
+                    defaultValue={stat.value}
+                    disabled
+                    />
+                    <Styled.Label htmlFor={stat.value}>{stat.name}</Styled.Label>
                 </Styled.StatContainer>
                 )
             }

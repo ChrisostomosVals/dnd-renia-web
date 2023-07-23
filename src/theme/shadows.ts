@@ -9,7 +9,7 @@ export const shadow = {
       horizontal: '1px',
       vertical: '1px',
       blur: '10px',
-      color: '#bb86fc',
+      color: '#5f6876',
     },
   };
   

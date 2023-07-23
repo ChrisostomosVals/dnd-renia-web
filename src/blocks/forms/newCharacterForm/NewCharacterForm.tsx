@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorField } from "../../../components/Error/ErrorField";
 import { createCharacter } from "../../../store/world/thunks";
 import CreateCharacterRequestModel from "../../../dist/models/CreateCharacterRequestModel";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type NewCharacterFormData = {
   name: string;
@@ -22,9 +22,6 @@ export const NewCharacterForm: FC = () => {
   const url = useSelector((state: RootState) => state.settings.url);
   const classes = useSelector((state: RootState) => state.world.classes);
   const races = useSelector((state: RootState) => state.world.races);
-  const themeMode = useSelector(
-    (state: RootState) => state.settings.preferences.themeMode
-  );
   const dispatch = useDispatch<AppDispatch>();
   const types: string[] = ["HERO", "NPC", "HOSTILE", "BOSS"];
   useEffect(() => {}, []);
@@ -140,7 +137,6 @@ export const NewCharacterForm: FC = () => {
           </Styled.FormFooter>
         </Styled.Form>
       </Styled.StatsBox>
-      <ToastContainer theme={themeMode} />
     </Styled.AlterContainer>
   );
 };

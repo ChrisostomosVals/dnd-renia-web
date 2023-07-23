@@ -14,6 +14,7 @@ import UpdateCharacterArsenalModelRequestModel from "../models/UpdateCharacterAr
 import UpdateCharacterDefinitionRequestModel from "../models/UpdateCharacterDefinitionRequestModel";
 import UpdateCharacterMoneyRequestModel from "../models/UpdateCharacterMoneyRequestModel";
 import UpdateCharacterRequestModel from "../models/UpdateCharacterRequestModel";
+import UploadFileRequestModel from "../models/UploadFileRequestModel";
 import UploadImageRequestModel from "../models/UploadImageRequestModel";
 import { characterEndpoint } from "../utils/constants";
 import HttpClient from "../utils/httpService";
@@ -672,6 +673,36 @@ export default class CharacterApi {
                 type: request.file.type, 
                 name: request.file.name
               })));
+            const response = await fetch(uri, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                if (data === null) {
+                    return new ApiResponseModel<{path: string}>(data, ErrorResponseModel.NewErrorMsg("content-null", "The response body was empty"));
+                }
+                return new ApiResponseModel<{path: string}>(data, null);
+            }
+            else if (response.status == 400 || response.status == 404) {
+                const errorMsg: ErrorResponseModel = await response.json();
+                return new ApiResponseModel<{path: string}>(null, ErrorResponseModel.NewErrorMsg(errorMsg.error ?? 'Something went wrong', errorMsg.message ?? 'Something went wrong'));
+            }
+            throw new Error('Something went wrong');
+        } catch (error: any) {
+            return new ApiResponseModel<{path: string}>(null, ErrorResponseModel.NewError("Character.UploadImageAsync().Exception", error));;
+        }
+    }
+    public static async UploadFileAsync(token: string, url: string, request: UploadFileRequestModel): Promise<ApiResponseModel<{path: string}>> {
+        try {
+            const uri = `${url}/${characterEndpoint}/image`
+
+            const formData = new FormData();
+            formData.append('id', request.id);
+            formData.append('file', request.file);
             const response = await fetch(uri, {
                 method: "POST",
                 body: formData,

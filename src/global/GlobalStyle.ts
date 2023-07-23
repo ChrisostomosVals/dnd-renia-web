@@ -1,7 +1,7 @@
-import { createGlobalStyle, css } from 'styled-components';
-import { theme } from '../theme';
+import { DefaultTheme, createGlobalStyle, css } from 'styled-components';
+import { ExtendedTheme } from '../types/theme';
 
-const GlobalStyle = createGlobalStyle<{theme: typeof theme} >`
+const GlobalStyle = createGlobalStyle<ExtendedTheme<DefaultTheme>>`
 ${({ theme }) => css`
 body {
     background-color: ${theme.color[theme.mode].backgroundColor};
