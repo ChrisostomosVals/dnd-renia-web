@@ -68,7 +68,7 @@ export const Input = styled.input`
     font-size: 1.3rem;
     color: ${theme.color[theme.mode].text};
     margin-top: ${theme.spacing.base4};
-    padding: 7px 0;
+    padding: ${theme.spacing.base4} 0;
     background: transparent;
     transition: border-color 0.2s;
 
@@ -150,7 +150,56 @@ export const TextArea = styled.textarea`
     }
   `}
 `;
+export const AlternativeTextArea = styled.textarea`
+  ${({ theme }) => css`
+    font-family: inherit;
+    max-width: 40vw;
+    min-width: 40vw;
+    min-height: 10vh;
+    border: 0;
+    border-bottom: ${theme.spacing.base4} solid ${theme.color[theme.mode].primary};
+    outline: 0;
+    font-size: 1.3rem;
+    color: ${theme.color[theme.mode].text};
+    margin-top: ${theme.spacing.base4};
+    padding: ${theme.spacing.base12} 0;
+    background: transparent;
+    transition: border-color 0.2s;
+    resize: vertical; /* Allow resizing only vertically */
+    overflow: hidden;
+    scrollbar-width: none; /* Hide the scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide the scrollbar in IE and Edge */
+    &::-webkit-scrollbar {
+      width: 0; /* Hide the scrollbar in Chrome, Safari, and Opera */
+    }
+    &::placeholder {
+      color: transparent;
+    }
 
+    &:placeholder-shown ~ ${Label} {
+      font-size: 1.3rem;
+      cursor: text;
+      top: 20px;
+    }
+
+    &:focus {
+      ~ ${Label} {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        color: ${theme.color[theme.mode].primary};
+      }
+      overflow: auto;
+      border-image-slice: 1;
+    }
+
+    &:required,
+    &:invalid {
+      box-shadow: none;
+    }
+  `}
+`;
 export const CheckBox = styled.input`
 ${({ theme }) => css`
   accent-color:  ${theme.color[theme.mode].hover};
@@ -212,11 +261,15 @@ ${({ theme }) => css`
     padding: 7px 0;
     background: transparent;
     transition: border-color 0.2s;
-
+    scrollbar-width: none; /* Hide the scrollbar in Firefox */
+    -ms-overflow-style: none; /* Hide the scrollbar in IE and Edge */
+    &::-webkit-scrollbar {
+      width: 0; /* Hide the scrollbar in Chrome, Safari, and Opera */
+    }
     &::placeholder {
       color: transparent;
     }
-
+    
     &:placeholder-shown ~ ${Label} {
       font-size: 1.3rem;
       cursor: text;
@@ -245,6 +298,9 @@ ${({ theme }) => css`
 export const Option = styled.option`
 ${({ theme }) => css`
     background-color: ${theme.color[theme.mode].backgroundColor};
+    &:hover {
+    background-color: ${({ theme }) => theme.color[theme.mode].secondary};
+  }
 `}
 `
 
@@ -348,3 +404,52 @@ export const ModalFooter = styled.div`
     flex-direction: row;
     justify-content: space-around;
 `
+
+export const CustomSelect = styled.div`
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+`;
+
+export const CustomSelectButton = styled.button`
+  width: 100%;
+  border: 0;
+  border-bottom: ${({ theme }) => theme.spacing.base4} solid ${({ theme }) => theme.color[theme.mode].primary};
+  outline: 0;
+  font-size: 1.3rem;
+  color: ${({ theme }) => theme.color[theme.mode].text};
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  cursor: pointer;
+  &::placeholder {
+    color: transparent;
+  }
+  &:focus {
+    border-image-slice: 1;
+  }
+`;
+
+export const CustomSelectOptions = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.color[theme.mode].backgroundColor};
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+`;
+
+export const CustomSelectOption = styled.div`
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ theme }) => theme.color[theme.mode].secondary};
+  }
+`;

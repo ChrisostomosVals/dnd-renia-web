@@ -8,6 +8,8 @@ import HttpClient from "../utils/httpService";
 import CreateWorldObjectRequestModel from "../models/CreateWorldObjectRequestModel";
 import UpdateWorldObjectRequestModel from "../models/UpdateWorldObjectRequestModel";
 import { ImagesUriModel } from "../models/ImagesUriModel";
+import DeleteImagesRequestModel from "../models/DeleteImagesRequestModel";
+import UploadFileRequestModel from "../models/UploadFileRequestModel";
 
 
 
@@ -130,6 +132,56 @@ export default class WorldObjectApi{
             throw new Error('Something went wrong');
         } catch (error: any) {
             return new ApiResponseModel<void>(null, ErrorResponseModel.NewError("WorldObjectApi.UpdateAsync().Exception", error));;
+        }
+    }
+    public static async UploadFileAsync(token: string, url: string, request: UploadFileRequestModel): Promise<ApiResponseModel<{path: string}>> {
+        try {
+            const uri = `${url}/${worldObjectEndpoint}/image`
+
+            const formData = new FormData();
+            formData.append('id', request.id);
+            formData.append('file', request.file);
+            const response = await fetch(uri, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                if (data === null) {
+                    return new ApiResponseModel<{path: string}>(data, ErrorResponseModel.NewErrorMsg("content-null", "The response body was empty"));
+                }
+                return new ApiResponseModel<{path: string}>(data, null);
+            }
+            else if (response.status == 400 || response.status == 404) {
+                const errorMsg: ErrorResponseModel = await response.json();
+                return new ApiResponseModel<{path: string}>(null, ErrorResponseModel.NewErrorMsg(errorMsg.error ?? 'Something went wrong', errorMsg.message ?? 'Something went wrong'));
+            }
+            throw new Error('Something went wrong');
+        } catch (error: any) {
+            return new ApiResponseModel<{path: string}>(null, ErrorResponseModel.NewError("Character.UploadImageAsync().Exception", error));;
+        }
+    }
+    public static async DeleteImagesAsync(token: string, url: string, request: DeleteImagesRequestModel): Promise<ApiResponseModel<{paths: string[]}>> {
+        try {
+            const uri = `${url}/${worldObjectEndpoint}/images`
+            const response = await HttpClient.deleteAsync(token, uri, request)
+            if (response.ok) {
+                const data = await response.json();
+                if (data === null) {
+                    return new ApiResponseModel<{paths: string[]}>(data, ErrorResponseModel.NewErrorMsg("content-null", "The response body was empty"));
+                }
+                return new ApiResponseModel<{paths: string[]}>(data, null);
+            }
+            else if (response.status == 400 || response.status == 404) {
+                const errorMsg: ErrorResponseModel = await response.json();
+                return new ApiResponseModel<{paths: string[]}>(null, ErrorResponseModel.NewErrorMsg(errorMsg.error ?? 'Something went wrong', errorMsg.message ?? 'Something went wrong'));
+            }
+            throw new Error('Something went wrong');
+        } catch (error: any) {
+            return new ApiResponseModel<{paths: string[]}>(null, ErrorResponseModel.NewError("Character.DeleteImagesAsync().Exception", error));;
         }
     }
     public static async DeleteAsync(token:string, url: string, id: string) : Promise<ApiResponseModel<void>> {

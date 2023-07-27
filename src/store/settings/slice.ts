@@ -1,12 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { SettingsState } from "./types";
 import { ColorVariantType } from "../../theme/color";
-
+const hostname = window.location.hostname;
+const url = `http://${hostname}:4001/gateway`;
 const initialState: SettingsState = {
     preferences: {
         themeMode: 'dark'
     },
-    url: 'http://localhost:4001/gateway'
+    url: url
 }
 
 export const settingsSlice = createSlice({

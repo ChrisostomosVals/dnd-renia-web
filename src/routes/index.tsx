@@ -27,6 +27,7 @@ import GearSheet from "../pages/CharacterSheet/Gear";
 import FeatsSheet from "../pages/CharacterSheet/Feats";
 import SpecialAbilitiesSheet from "../pages/CharacterSheet/SpecialAbilities";
 import ImagesSheet from "../pages/CharacterSheet/Images";
+import Map from "../pages/Map/Map";
 
 
 export const AppRouter:FC = () => {
@@ -58,6 +59,7 @@ export const AppRouter:FC = () => {
                 <Route path={`${Paths.AccountCharacter}${Paths.Feats}`} element={<FeatsSheet/>}/>
                 <Route path={`${Paths.AccountCharacter}${Paths.SpecialAbilities}`} element={<SpecialAbilitiesSheet />}/>
                 <Route path={`${Paths.AccountCharacter}${Paths.Images}`} element={<ImagesSheet />}/>
+                <Route path={`${Paths.Map}`} element={<Map />}/>
             </Route>
             <Route path={Paths.Login} element={<Login />}/>
         </Routes>

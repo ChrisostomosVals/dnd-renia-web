@@ -7,9 +7,9 @@ import { Button } from "../../../components/Button/Button";
 import { ErrorField } from "../../../components/Error/ErrorField";
 import { AuthContext } from "../../../providers/authProvider/AuthProvider";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../store/account/thunks";
-import { AppDispatch } from "../../../store";
+import { AppDispatch, RootState } from "../../../store";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 export const LoginForm: FC = () => {
   const [error, setError] = useState<boolean>(false);
@@ -24,10 +24,11 @@ export const LoginForm: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { toggleAuthentication } = useContext(AuthContext);
   const [show, setShow] = useState<boolean>(false);
+  const url = useSelector((state: RootState) => state.settings.url);
   const onSubmit: SubmitHandler<LoginFormData> = async (
     data
   ): Promise<void> => {
-    dispatch(login({email: data.email, password: data.password, url: "http://localhost:4001/gateway"})
+    dispatch(login({email: data.email, password: data.password, url: url})
     ).then(response => {
       if(response.type === "login/rejected"){
         setError(true);

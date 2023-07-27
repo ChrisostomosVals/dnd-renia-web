@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
 import * as Styled from "./styles/Images.styles";
 import CharacterApi from "../../dist/api/CharacterApi";
 import { useSelector } from "react-redux";
@@ -38,18 +37,22 @@ const ImagesSheetPage: FC = () => {
         else{
             setImages(response.data!);
         }
+        setLoading(false);
       }).catch(error => {
         console.log(error)
+        setLoading(false);
         toast.error('Something went wrong');
       })
     }
-    setLoading(false);
+    else{
+        setLoading(false);
+    }
     if (images?.images.length) {
         document.addEventListener("keydown", handleKeyDown);
         return () => {
           document.removeEventListener("keydown", handleKeyDown);
         };
-      }
+    }
 }, [user, token]);
   
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -92,7 +95,6 @@ const ImagesSheetPage: FC = () => {
           url,
           user?.characterId!
         );
-        console.log(fetchImages);
         if (!fetchImages.isError) {
           setImages(fetchImages.data!);
         }
@@ -160,7 +162,7 @@ const ImagesSheetPage: FC = () => {
           <Spinner visible={true} />
         </Styled.SpinnerContainer>
     );
-  }
+    }
   const Footer: FC = () => (
     <Styled.ModalFooter>
       <Button fullWidth={false} variant="secondary" onClick={handleCancel}>

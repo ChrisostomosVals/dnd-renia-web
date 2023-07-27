@@ -23,7 +23,7 @@ const HomePage: FC = () => {
             <GiBookCover size={70} />
             <Typography variant="heading1" align="center">Chapters</Typography>
           </Styled.MenuItemLinks>
-          <Styled.MenuItemLinks to={Paths.NewCharacter}>
+          <Styled.MenuItemLinks to={Paths.Map}>
             <FaMap size={70} />
             <Typography variant="heading1" align="center">Map</Typography>
           </Styled.MenuItemLinks>

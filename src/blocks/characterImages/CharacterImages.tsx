@@ -41,9 +41,16 @@ export const CharacterImgs: FC = () => {
         if (!response.isError) {
           setImages(response.data!);
         }
+        setLoading(false);
+      }).catch(error => {
+        console.log(error)
+        setLoading(false);
+        toast.error('Something went wrong');
       });
     }
-    setLoading(false);
+    else{
+      setLoading(false);
+    }
     if (images?.images.length) {
       document.addEventListener("keydown", handleKeyDown);
       return () => {

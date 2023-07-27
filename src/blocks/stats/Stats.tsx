@@ -23,11 +23,11 @@ export const Stats:FC = () =>{
     return(
         <Styled.Container>
             <Styled.Title>
-            <Typography variant="heading1">{name}: Skills</Typography>
+            <Typography variant="heading1">{name}: Stats</Typography>
             </Styled.Title>
             <Styled.Box>
             {
-                !!stats.length &&
+                !!stats.length ?
                 stats.map((stat, index) => 
                 <Styled.StatContainer key={stat.name + index}>
                     <Styled.Input
@@ -39,7 +39,10 @@ export const Stats:FC = () =>{
                     />
                     <Styled.Label htmlFor={stat.value}>{stat.name}</Styled.Label>
                 </Styled.StatContainer>
-                )
+                ) :
+                <Typography variant="heading1">
+                    This Character has no visible Stats
+                </Typography>
             }
             </Styled.Box>
         </Styled.Container>

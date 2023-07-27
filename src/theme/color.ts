@@ -10,7 +10,7 @@ export const color: ColorType = {
     light: {
         backgroundColor: '#ffffff',
         primary: '#eeeae6',
-        secondary: '#03dac6',
+        secondary: '#514e47',
         text: '#000000',
         error: '#ff3333',
         buttonPrimary: '#eeeae6',
@@ -29,12 +29,14 @@ export const color: ColorType = {
         tableRowOdd: '#FFFFFF',
         tableRowEven: '#f5f5f5',
         sideBar: '#e6e6e6',
-        link: '#000000'
+        link: '#000000',
+        markerPrimary:'#5f6876',
+        markerSecondary:'#7d433e',
     },
     dark: {
         backgroundColor: '#22252a',
         primary: '#5f6876',
-        secondary: '#03dac6',
+        secondary: '#7d433e',
         text: '#FFFFFF',
         error: '#ff3333',
         buttonPrimary: '#5f6876',
@@ -53,6 +55,8 @@ export const color: ColorType = {
         tableHeader: '#433e47',
         tableRowOdd: '#202328',
         tableRowEven: '#22252a',
-        link: '#FFFFFF'
+        link: '#FFFFFF',
+        markerPrimary:'#5f6876',
+        markerSecondary:'#7d433e',
     },
 };

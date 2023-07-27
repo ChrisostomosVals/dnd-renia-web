@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import * as Styled from "../styles/Form.style";
 import Typography from "../../../components/Typography/Typography";
 import { Button } from "../../../components/Button/Button";
@@ -24,6 +24,7 @@ export const NewCharacterForm: FC = () => {
   const races = useSelector((state: RootState) => state.world.races);
   const dispatch = useDispatch<AppDispatch>();
   const types: string[] = ["HERO", "NPC", "HOSTILE", "BOSS"];
+  
   useEffect(() => {}, []);
   const {
     control,
@@ -49,7 +50,6 @@ export const NewCharacterForm: FC = () => {
       }
     });
   };
-
   return (
     <Styled.AlterContainer>
       <Styled.StatsBox>
