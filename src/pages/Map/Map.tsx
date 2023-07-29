@@ -81,23 +81,20 @@ const MapPage: FC = () => {
   }, [url, token]);
   const handlePopupClick = useCallback(
     <T,>(value: T, action: "view" | "edit", position?: LatLngLiteral): void => {
+      setOpen(true);
+      setAction(action);
+  
       if (!type) {
         setLocation(value as LocationModel);
-        setOpen(true);
-        setAction(action);
-        if (action === "edit") {
-          setPosition(position);
-        }
       } else {
         setWorldObject(value as WorldObjectModel);
-        setOpen(true);
-        setAction(action);
-        if (action === "edit") {
-          setPosition(position);
-        }
+      }
+  
+      if (action === "edit") {
+        setPosition(position);
       }
     },
-    []
+    [type]
   );
   const fetchLocations = async (): Promise<void> => {
     const response = await LocationApi.GetAsync(token?.access_token ?? "", url);
@@ -285,14 +282,12 @@ const MapPage: FC = () => {
   };
   const handleDoubleClick = <T,>(value: T): void => {
     if (!type) {
-      setAction("delete");
       setLocation(value as LocationModel);
-      setOpen(true);
     } else {
-      setAction("delete");
       setWorldObject(value as WorldObjectModel);
-      setOpen(true);
     }
+    setOpen(true);
+    setAction("delete");
   };
   if(!url){
     return <Spinner visible={true}/>
